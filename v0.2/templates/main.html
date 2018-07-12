@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <head>
    <title>Current Status</title>
+   <link rel="stylesheet" type="text/css" href="./main.css" />
 </head>
 
 <body>
-   <h1>Device Listing and Status</h1>
+   <!-- <h1>Device Listing and Status</h1> -->
 
    <!-- {% for pin in pins %}
    <p>The {{ pins[pin].name }}
@@ -16,13 +17,103 @@
    </p>
    {% endfor %} -->
 
-   <a href="/forward">Forward</a>
+   <div id="main-container">
+      <div class="bot">
+         <div class="wheel">
+            <div> LEFT </div>
+            <div>
+               <div class="slidecontainer">
+                  <input type="range" min="-100" max="100" value="0" class="slider" id="leftSlider">
+               </div>
+               <p id="leftOutput" class="output"> 0 </p>
+            </div>
+         </div>
+         <div class="wheel-container">
+            <div class="axle-side">.</div>
+            <div class="axle"> BOTH </div>
+            <!-- <div class="axle-side">.</div> -->
+            <div>
+               <div class="axle-side">
+                  <input type="range" min="-100" max="100" value="0" class="slider" id="bothSlider">
+               </div>
+               <p id="bothOutput" class="output"> 0 </p>
+            </div>
+         </div>
+         <div class="wheel">
+            <div> RIGHT </div>
+            <div>
+               <div class="slidecontainer">
+                  <input type="range" min="-100" max="100" value="0" class="slider" id="rightSlider">
+               </div>
+               <p id="rightOutput" class="output"> 0 </p>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="button raised" onclick="location.href='newurl.html';">
+      Affect Changes
+   </div>
+   <div class="options-container">
+      <a class="button raised options" href="/forward">
+         Forward
+      </a>
+      <a class="button raised options" href="/backward">
+         Backward
+      </a>
+      <a class="button raised options" href="/left">
+         Turn Left
+      </a>
+      <a class="button raised options" href="/right">
+         Turn Right
+      </a>
+      <a class="button raised options" href="/stop">
+         Stop
+      </a>
+      <a class="button raised options" href="/demo">
+         Demo
+      </a>
+   </div>
+
+   <script type="text/javascript">
+      var leftSlider = document.getElementById("leftSlider");
+      var leftOutput = document.getElementById("leftOutput");
+      
+      var rightSlider = document.getElementById("rightSlider");
+      var rightOutput = document.getElementById("rightOutput");
+
+      var bothSlider = document.getElementById("bothSlider");
+      var bothOutput = document.getElementById("bothOutput");
+      
+      leftOutput.innerHTML = leftSlider.value;
+      rightOutput.innerHTML = rightSlider.value;
+      bothOutput.innerHTML = bothSlider.value;
+
+      // Update the current slider value (each time you drag the slider handle)
+      leftSlider.oninput = function() {
+         leftOutput.innerHTML = this.value;
+      }
+      rightSlider.oninput = function() {
+         rightOutput.innerHTML = this.value;
+      }
+      bothSlider.oninput = function() {
+         bothOutput.innerHTML = this.value;
+         leftOutput.innerHTML = this.value;
+         rightOutput.innerHTML = this.value;
+         leftSlider.value = this.value;
+         rightSlider.value = this.value;
+      }
+   </script>
+
+   <!-- <a href="/forward">Forward</a>
    <a href="/backward">Backward</a>
    <a href="/stop">Stop</a>
-   <a href="/demo">Run Demo</a>
+   <a href="/demo">Run Demo</a> -->
 
    {% if message %}
-   <h2>Status: {{ message }}</h2>
+   <p class="message">
+      Status: {{ message }}
+   </p>
    {% endif %}
 
 </body>
